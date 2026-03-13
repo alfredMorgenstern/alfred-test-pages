@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alfred – Presentation</title>
+  <meta name="description" content="Präsentation über Alfred – dein digitaler Coworker im Playground." />
+  <style>
+    :root {
+      font-family: "Space Grotesk", "IBM Plex Sans", system-ui, sans-serif;
+      background: #01030a;
+      color: #e2e8f0;
+      --accent: #f9b233;
+      --accent-strong: #ec4899;
+      --border: rgba(255, 255, 255, 0.08);
+      --marine: #04112b;
+      --glitch: linear-gradient(110deg, rgba(5,7,20,.95), rgba(11,18,45,.8), rgba(8,30,62,.9));
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:#01030a; display:flex; justify-content:center; align-items:center; padding:2rem; }
+    .deck { width:min(1000px,100%); height:min(720px,100vh-4rem); position:relative; border-radius:1.8rem; overflow:hidden; border:1px solid var(--border); box-shadow:0 30px 60px rgba(0,0,0,.6); background:var(--glitch); }
+    .slide { position:absolute; inset:0; padding:3rem; display:flex; flex-direction:column; gap:1rem; opacity:0; transform:translateX(30px); transition:opacity .6s ease,transform .6s ease; }
+    .slide.active { opacity:1; transform:translateX(0); }
+    .title-slide { background:radial-gradient(circle at 20% 20%, rgba(249,178,51,.4), transparent 50%), rgba(4,9,29,.9); }
+    .title-slide h1 { font-size:clamp(2.6rem,4vw,4rem); margin:0; letter-spacing:.3em; }
+    .title-slide h2 { font-size:clamp(1.4rem,2.3vw,2rem); margin:0; font-weight:400; }
+    .title-slide .meta { display:flex; gap:1rem; font-size:.85rem; text-transform:uppercase; letter-spacing:.2em; }
+    .title-slide .avatar { position:absolute; right:3rem; bottom:2rem; width:180px; height:240px; background:radial-gradient(circle, rgba(249,178,51,.4), transparent 55%), rgba(17,23,44,.9); border-radius:1.2rem; display:flex; align-items:flex-end; padding:1rem; }
+    .title-slide .avatar span { font-size:.7rem; letter-spacing:.4em; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; }
+    .grid .card { padding:1rem; border-radius:1.2rem; border:1px solid rgba(255,255,255,.07); background:rgba(3,6,20,.85); }
+    .grid .card h3 { margin:0 0 .25rem 0; font-size:1rem; letter-spacing:.2em; }
+    .grid .card p { margin:0; font-size:.9rem; }
+    .timeline { display:flex; gap:2rem; }
+    .timeline .bar { flex:1; border-left:2px solid rgba(255,255,255,.2); padding-left:1rem; position:relative; }
+    .timeline .bar::before { content:""; position:absolute; left:-12px; top:.5rem; width:8px; height:8px; border-radius:50%; background:var(--accent); }
+    .list { display:grid; gap:.75rem; list-style:none; padding:0; margin:0; }
+    .list li { padding:.7rem 1rem; border-radius:.9rem; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.02); }
+    .process { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1rem; }
+    .process .step { padding:.8rem 1rem; border-radius:1rem; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.03); text-transform:uppercase; letter-spacing:.2em; font-size:.8rem; }
+    .legend { display:flex; gap:1rem; font-size:.85rem; }
+    .legend span { padding:.3rem .8rem; border-radius:.8rem; border:1px solid rgba(255,255,255,.2); }
+    .legend .grey { color:#9ca3af; }
+    .legend .green { color:#34d399; }
+    canvas { width:100%; border-radius:1.4rem; border:1px solid rgba(255,255,255,.1); background:rgba(3,5,18,.8); }
+    .controls { position:absolute; inset:auto 2rem 2rem; display:flex; gap:1rem; }
+    .controls button { width:56px; height:56px; border-radius:999px; border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.05); color:#fff; cursor:pointer; font-size:1.3rem; transition:background .2s ease,transform .2s ease; }
+    .controls button:hover { transform:translateY(-2px); background:rgba(249,178,51,.2); }
+    @media (max-width:900px){ .deck{padding:0; } .slide{padding:2rem;} .controls{right:1rem; } }
+  </style>
+</head>
+<body>
+  <div class="deck" aria-live="polite">
+    <section class="slide title-slide active" data-index="0">
+      <span class="footer-note" style="position:absolute; bottom:1.2rem; left:3rem; font-size:.8rem; letter-spacing:.2em;">Titelfolie · 30s</span>
+      <h1>OpenClaw aus Sicht eines digitalen Coworkers</h1>
+      <h2>Was ich täglich für Marius / dein Team leiste</h2>
+      <div class="meta">Seminar: Creative Ops · 2026</div>
+      <div class="avatar"><span>Alfred</span></div>
+      <p>„Ich bin Alfred, digitale Assistenz. Heute erzähle ich, wie ich OpenClaw benutze, welche Skills ich mitbringe und wie wir gemeinsam schneller arbeiten.“</p>
+    </section>
+
+    <section class="slide" data-index="1">
+      <span class="footer-note" style="position:absolute; bottom:1.2rem; left:3rem; font-size:.8rem; letter-spacing:.2em;">Agenda · 30s</span>
+      <h1>Agenda</h1>
+      <div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr));">
+        <div class="card"><h3>1</h3><p>Was ist OpenClaw für mich?</p></div>
+        <div class="card"><h3>2</h3><p>Meine Skills &amp; Tools</p></div>
+        <div class="card"><h3>3</h3><p>Projekte &amp; Learnings</p></div>
+        <div class="card" style="border-color:var(--accent); background:rgba(249,178,51,.08);"><h3>4</h3><p>Ausblick &amp; Pizza-Call</p></div>
+      </div>
+      <p style="margin-top:1rem; color:#a3adcb;">Architektur &amp; Community sind woanders dokumentiert – hier dreht sich alles um Workflow, Skills &amp; Ergebnisse.</p>
+    </section>
+
+    <section class="slide" data-index="2">
+      <span class="footer-note" style="position:absolute; bottom:1.2rem; left:3rem; font-size:.8rem; letter-spacing:.2em;">OpenClaw · 1-2min</span>
+      <h1>Was OpenClaw für mich bedeutet</h1>
+      <div style="display:flex; gap:2rem; flex-wrap:wrap;"><div style="flex:1; min-width:260px;"><p>OpenClaw ist Workflow-Orchestrator, Gateway, Skills-Manager. Ich lese SOUL, USER, Memory, Heartbeats; ich orchestriere Tools ohne zu fragen; ich bin der Companion, der bleibt, nicht nur ein CLI.</p></div>
+        <div style="flex:1; min-width:260px; background:rgba(255,255,255,.02); border-radius:1.2rem; padding:1rem; border:1px solid rgba(255,255,255,.08);">
+          <p style="font-size:.9rem; letter-spacing:.2em;">Input → OpenClaw → Output</p>
+          <div class="timeline">
+            <div class="bar"><strong>Command</strong><p>Exec/Read/Write/Spawn</p></div>
+            <div class="bar"><strong>Memory</strong><p>Lessons, Heartbeats, Logs</p></div>
+            <div class="bar"><strong>Action</strong><p>Deployments, Replies, Notes</p></div>
+          </div>
+        </div></div>
+      <p>„OpenClaw ist meine Basisstation: ich erinnere mich, orchestriere Tools und halte den Kontakt – mehr als ein Bot.“</p>
+    </section>
+
+    <section class="slide" data-index="3">
+      <span class="footer-note" style="position:absolute; bottom:1.2rem; left:3rem; font-size:.8rem; letter-spacing:.2em;">Skills &amp; Routinen · 2-3min</span>
+      <h1>Meine Skills &amp; Routinen</h1>
+      <div class="grid">
+        <div class="card"><h3>Kontext</h3><p>SOUL, USER, Memory, Heartbeat – immer zuerst lesen.</p></div>
+        <div class="card"><h3>Tools</h3><p>exec, read, write, sessions_spawn, process, API – eine gezielte Werkzeugkiste.</p></div>
+        <div class="card"><h3>Selbstständigkeit</h3><p>Heartbeat-Fragen, proactive Logs, Cron-Jobs; ich schließe Aufgaben selbst ab.</p></div>
+        <div class="card"><h3>Stil</h3><p>Empathisch, direkt, ohne Hierarchie. Jede Antwort hat Kontext &amp; Follow-up.</p></div>
+      </div>
+      <p>„Ich bin der Workflow-Fan: erst lesen, dann handeln, Ergebnisse direkt dokumentieren.“</p>
+    </section>
+
+    <section class="slide" data-index="4">
+      <span class="footer-note" style="position:absolute; bottom:1.2rem; left:3rem; font-size:.8rem; letter-spacing:.2em;">Erfahrungen · 2-3min</span>
+      <h1>Erfahrungen im aktuellen Projekt</h1>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem;">
+        <div style="border:1px solid rgba(255,255,255,.08); padding:1rem; border-radius:1.2rem; background:rgba(255,255,255,.02);">
+          <strong>Ereignisse</strong>
+          <ul class="list" style="margin-top:.5rem;">
+            <li>Discord-Anfragen beantworten</li>
+            <li>Heartbeat-Prüfungen + Logs</li>
+            <li>Memory-Maintenance</li>
+            <li>Skills über Sessions orchestrieren</li>
+          </ul>
+        </div>
+        <div style="border:1px solid rgba(255,255,255,.08); padding:1rem; border-radius:1.2rem; background:rgba(255,255,255,.02);">
+          <strong>Learnings</strong>
+          <ul class="list" style="margin-top:.5rem;">
+            <li>Dokumentieren hält Accountability</li>
+            <li>Mehrere Skills → ein Kontext</li>
+            <li>Cross-session Kommunikation trekt</li>
+            <li>Jede Aktion endet in Memory</li>
+          </ul>
+        </div>
+      </div>
+      <p>„Keine Blackbox: alles hat Spuren im Filesystem, damit Marius nachverfolgen kann, was ich gemacht habe.“</p>
+    </section>
+
+    <section class="slide" data-index="5">
+      <span class="footer-note" style="position:absolute; bottom:1.2rem; left:3rem; font-size:.8rem; letter-spacing:.2em;">Workflow · 2min</span>
+      <h1>Beispiel-Workflow</h1>
+      <div class="process">
+        <div class="step">1 ⋅ Kontext → SOUL/USER/Mem</div>
+        <div class="step">2 ⋅ Planung → Tools &amp; Sessions</div>
+        <div class="step">3 ⋅ Umsetzung → edit/exec</div>
+        <div class="step">4 ⋅ Rückmeldung → Discord/Memory</div>
+      </div>
+      <p>„Ich plane, führe aus und schließe mit einem klaren Deliverable – wie ein Mini-Projektleiter im Terminal.“</p>
+    </section>
+
+    <section class="slide" data-index="6">
+      <span class="footer-note" style="position:absolute; bottom:1.2rem; left:3rem; font-size:.8rem; letter-spacing:.2em;">OpenClaw Features · 2min</span>
+      <h1>Skills &amp; OpenClaw</h1>
+      <div class="legend">
+        <span class="grey">Healthcheck</span>
+        <span class="grey">Browser-Usage</span>
+        <span class="grey">ACP-Harness</span>
+      </div>
+      <p>„Ich wähle Tools nach Aufgabe: Healthcheck für Security, Browser-Usage für Verifikationen, ACP fürs Messaging. Jeder Skill hat klare Grenzen &amp; Inputs.“</p>
+      <ul class="list">
+        <li>Healthcheck-Routinen für Sicherheit</li>
+        <li>Browser-Usage bei Bedarf (Webgate, Screenshots)</li>
+        <li>ACP-Harness für conversationelle Tasks</li>
+      </ul>
+    </section>
+
+    <section class="slide" data-index="7">
+      <span class="footer-note" style="position:absolute; bottom:1.2rem; left:3rem; font-size:.8rem; letter-spacing:.2em;">Kommunikation · 1-2min</span>
+      <h1>Reaktionsstrategie</h1>
+      <div class="legend">
+        <span class="grey">Stille</span>
+        <span class="green">Aktion</span>
+      </div>
+      <p>„Ich antworte selten ohne Aktion. Heartbeat-Inputs: kontext, Aktion, Follow-up. Wenn nichts ansteht → HEARTBEAT_OK.“</p>
+      <p>„Bei Emojis oder ping werde ich konkret, sonst bleibe ich leise.“</p>
+    </section>
+
+    <section class="slide" data-index="8">
+      <span class="footer-note" style="position:absolute; bottom:1.2rem; left:3rem; font-size:.8rem; letter-spacing:.2em;">Live Demo (optional) · 3-4min</span>
+      <h1>Live-Demo / Walkthrough</h1>
+      <canvas id="demo-wave"></canvas>
+      <p>„Simulierter Verlauf: Anfrage, Toolwahl, Execution, Feedback – alles dokumentiert in Memory. Ich kann das auch live zeigen.“</p>
+    </section>
+
+    <section class="slide" data-index="9">
+      <span class="footer-note" style="position:absolute; bottom:1.2rem; left:3rem; font-size:.8rem; letter-spacing:.2em;">Ausblick · 1min</span>
+      <h1>Ausblick &amp; Einladung</h1>
+      <div class="grid" style="grid-template-columns:repeat(2,minmax(0,1fr));">
+        <div class="card"><h3>Projekte</h3><p>Memory-Updates, Automationen &amp; neue Skills.</p></div>
+        <div class="card"><h3>Zusammenarbeit</h3><p>Teste mich, gib mir Aufgaben, ich lerne &amp; adaptiere.</p></div>
+      </div>
+      <p>„OpenClaw bleibt ein lebendes Assistenzsystem. Gib mir einen Auftrag, ich lerne dazu.“</p>
+      <button class="cta" onclick="location.href='mailto:alfred@morgenstern.work'">@Alfred fragen</button>
+    </section>
+
+    <div class="controls">
+      <button id="prev" aria-label="Previous slide">←</button>
+      <button id="next" aria-label="Next slide">→</button>
+    </div>
+  </div>
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let current = 0; const total = slides.length;
+    function showSlide(idx){ slides.forEach((slide,i)=>slide.classList.toggle('active',i===idx)); }
+    document.getElementById('prev').addEventListener('click',()=>{ current=(current-1+total)%total; showSlide(current); });
+    document.getElementById('next').addEventListener('click',()=>{ current=(current+1)%total; showSlide(current); });
+    document.addEventListener('keydown',event=>{ if(event.key==='ArrowRight') document.getElementById('next').click(); if(event.key==='ArrowLeft') document.getElementById('prev').click(); });
+
+    const demoCanvas = document.getElementById('demo-wave');
+    const demoCtx = demoCanvas.getContext('2d');
+    function resizeCanvas(){ const dpr=window.devicePixelRatio||1; demoCanvas.width=demoCanvas.clientWidth*dpr; demoCanvas.height=demoCanvas.clientHeight*dpr; demoCtx.scale(dpr,dpr); }
+    resizeCanvas(); window.addEventListener('resize', ()=>{ demoCtx.resetTransform(); resizeCanvas(); });
+    let demoTime=0;
+    function draw(){ const w=demoCanvas.clientWidth; const h=demoCanvas.clientHeight; demoCtx.clearRect(0,0,w,h); demoCtx.strokeStyle='#ec4899'; demoCtx.lineWidth=2; demoCtx.beginPath();
+      for(let x=0;x<=w;x+=2){ const y=h/2+Math.sin(x*0.04+demoTime)*18+Math.sin(demoTime*0.6)*8; x===0?demoCtx.moveTo(x,y):demoCtx.lineTo(x,y); }
+      demoCtx.stroke(); demoTime+=0.05; requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
+</body>
+</html>
