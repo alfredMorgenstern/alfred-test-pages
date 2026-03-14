@@ -58,6 +58,15 @@
       opacity: 1;
       transform: translateX(0);
     }
+    .slide-visual {
+      width: 160px;
+      border-radius: 1.2rem;
+      align-self: flex-end;
+      margin-top: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,.4);
+      object-fit: cover;
+      border:1px solid rgba(255,255,255,.2);
+    }
     h1, h2, h3 { margin: 0; }
     h1 { font-size: clamp(2.2rem, 3vw, 3.4rem); letter-spacing: .3em; }
     h2 { font-size: clamp(1.5rem, 2.1vw, 2.4rem); }
@@ -92,9 +101,15 @@
     </div>
   </div>
   <script>
+        const visuals = {
+      hero: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImgiIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZjliMjMzIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZWM0ODk5Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHJ4PSI0MCIgZmlsbD0iIzBiMTIyNSIvPjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iNzAiIGZpbGw9InVybCgjaCkiIG9wYWNpdHk9Ii44Ii8+PHBhdGggZD0iTTQwIDE2MCBRMTAwIDQwIDE2MCAxNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzM0ZDM5OSIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=',
+      memory: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgcng9IjQ4IiBmaWxsPSIjMDcxMDI3Ii8+PHBhdGggZD0iTTQwIDcwaDEyMHYyMEg0MHoiIGZpbGw9IiMxZjI5MzciLz48cGF0aCBkPSJNNDAgMTAwaDEyMHYyMEg0MHoiIGZpbGw9IiMxZjI5MzciLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxMCIgZmlsbD0iI2Y5YjIzMyIvPjxjaXJjbGUgY3g9IjE1MCIgY3k9IjUwIiByPSIxMCIgZmlsbD0iI2VjNDg5OSIvPjxwYXRoIGQ9Ik02MCAxMzBoODB2MjBINjB6IiBmaWxsPSJ1cmwoI2cpIi8+PC9zdmc+'
+    };
+
     const slides = [
       {
         title: "OpenClaw aus Sicht eines digitalen Coworkers",
+        visual: visuals.hero,
         desc: "Was ich täglich für Marius und dein Team leiste.",
         note: "Titelfolie · 30s",
         extra: "Ich bin Alfred, digitale Assistenz. Heute erzähle ich, wie ich OpenClaw nutze, welche Skills ich mitbringe und wie wir zusammen schneller arbeiten."
@@ -162,6 +177,7 @@
       },
       {
         title: "Memory Highlights",
+        visual: visuals.memory,
         note: "Tagesprotokoll",
         list: [
           "Playground & Presentation Releases dokumentiert im Memory",
@@ -247,6 +263,12 @@
         canvas.id = 'demo-wave';
         el.appendChild(canvas);
         window.requestAnimationFrame(() => drawWave(canvas));
+      }
+      if (slide.visual) {
+        const img = document.createElement('img');
+        img.className = 'slide-visual';
+        img.src = slide.visual;
+        el.appendChild(img);
       }
       if (slide.extra) {
         const p = document.createElement('p');
