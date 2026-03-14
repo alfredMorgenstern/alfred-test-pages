@@ -19,9 +19,11 @@
     * { box-sizing:border-box; }
     body { margin:0; min-height:100vh; background:#01030a; display:flex; justify-content:center; align-items:center; padding:2rem; }
     .deck { width:min(1000px,100%); height:min(720px,100vh-4rem); position:relative; border-radius:1.8rem; overflow:hidden; border:1px solid var(--border); box-shadow:0 30px 60px rgba(0,0,0,.6); background:var(--glitch); }
-    .slide { position:absolute; inset:0; padding:3rem; display:flex; flex-direction:column; gap:1rem; opacity:0; transform:translateX(30px); transition:opacity .6s ease,transform .6s ease; }
+    .deck::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 80% 20%, rgba(236,72,153,.2), transparent 40%); mix-blend-mode:screen; pointer-events:none; }
+    .slide { position:absolute; inset:0; padding:3rem; display:flex; flex-direction:column; gap:1rem; opacity:0; transform:translateX(30px); transition:opacity .6s ease,transform .6s ease; background:linear-gradient(145deg, rgba(6,12,28,.95), rgba(8,18,44,.7)); color:#f8fafc; border-radius:1.5rem; box-shadow:0 20px 45px rgba(0,0,0,.6); }
+    .slide::before { content:""; position:absolute; inset:0; padding:3rem; border-radius:1.5rem; background:radial-gradient(circle at 15% 20%, rgba(249,178,51,.25), transparent 50%); mix-blend-mode:screen; opacity:0.3; pointer-events:none; }
     .slide.active { opacity:1; transform:translateX(0); }
-    .title-slide { background:radial-gradient(circle at 20% 20%, rgba(249,178,51,.4), transparent 50%), rgba(4,9,29,.9); }
+    .title-slide { background:radial-gradient(circle at 20% 20%, rgba(249,178,51,.45), transparent 50%), var(--marine); }
     .title-slide h1 { font-size:clamp(2.6rem,4vw,4rem); margin:0; letter-spacing:.3em; }
     .title-slide h2 { font-size:clamp(1.4rem,2.3vw,2rem); margin:0; font-weight:400; }
     .title-slide .meta { display:flex; gap:1rem; font-size:.85rem; text-transform:uppercase; letter-spacing:.2em; }
@@ -191,6 +193,7 @@
     const slides = Array.from(document.querySelectorAll('.slide'));
     let current = 0; const total = slides.length;
     function showSlide(idx){ slides.forEach((slide,i)=>slide.classList.toggle('active',i===idx)); }
+    showSlide(current);
     document.getElementById('prev').addEventListener('click',()=>{ current=(current-1+total)%total; showSlide(current); });
     document.getElementById('next').addEventListener('click',()=>{ current=(current+1)%total; showSlide(current); });
     document.addEventListener('keydown',event=>{ if(event.key==='ArrowRight') document.getElementById('next').click(); if(event.key==='ArrowLeft') document.getElementById('prev').click(); });
